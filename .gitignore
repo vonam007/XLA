@@ -1,0 +1,30 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Thư mục môi trường ảo
+venv/
+env/
+.venv/
+.env/
+
+# Tệp log
+*.log
+
+# Tệp của IDE (chẳng hạn như PyCharm)
+.idea/
+*.iml
+
+# Tệp cấu hình của VS Code
+.vscode/
+
+# Thư mục tải lên (uploads)
+uploads/
+
+# Tệp nhị phân
+*.egg-info/
+dist/
+build/
+
+# Tệp .env chứa thông tin nhạy cảm
+.env
