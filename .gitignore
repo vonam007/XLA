@@ -20,7 +20,7 @@ env/
 
 # Thư mục tải lên (uploads)
 uploads/
-
+static/output/
 # Tệp nhị phân
 *.egg-info/
 dist/
