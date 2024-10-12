@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Image Processing</title>
+</head>
+<body>
+    <h1>Upload an Image for Processing</h1>
+    
+    <!-- Form upload ảnh và chọn phương pháp xử lý -->
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="file">Select Image:</label>
+        <input type="file" name="file" accept="image/*">
+        
+        <label for="method">Select Processing Method:</label>
+        <select name="method">
+            <option value="grayscale">Grayscale</option>
+            <option value="smoothing">Smoothing</option>
+            <option value="sharpening">Sharpening</option>
+            <option value="edge_detection">Edge Detection</option>
+        </select>
+
+        <button type="submit">Upload and Process</button>
+    </form>
+    <div class="image_contain container">
+        {% if original_image %}
+            <div >
+                <h2>Original Image:</h2>
+                <div class="image_contain original"> 
+                    <div>
+                        <h3>Uploaded Image:</h3>
+                        <img src="{{ url_for('uploaded_file', filename='uploaded_image.jpg') }}" alt="Original Image" class="processedImage">
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if processed_images %}
+            <div>
+            <h2>Processed Images:</h2>
+                <div class="image_contain"> 
+                {% for key, image in processed_images.items() %}
+                    <div>
+                        <h3>{{ key.capitalize() }}:</h3>
+                        <img src="{{ url_for('static',  filename='output/'+ image) }}" alt="{{ key.capitalize() }} Image" class="processedImage">
+                    </div>
+                {% endfor %}
+            </div>    
+        </div> 
+        {% endif %}
+    </div>
+</body>
+</html>
