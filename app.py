@@ -40,6 +40,8 @@ def uploaded_file(filename):
 def upload_image():
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)  
+    if not os.path.exists(OUTPUT_FOLDER):
+        os.makedirs(OUTPUT_FOLDER)
     original_image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'uploaded_image.jpg')
 
     # Kiểm tra nếu không có file mới được chọn, sẽ sử dụng ảnh cũ
