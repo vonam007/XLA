@@ -38,12 +38,14 @@ def uploaded_file(filename):
 
 @app.route('/upload', methods=['POST'])
 def upload_image():
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)  
     original_image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'uploaded_image.jpg')
 
     # Kiểm tra nếu không có file mới được chọn, sẽ sử dụng ảnh cũ
     if 'file' not in request.files or request.files['file'].filename == '':
         if not os.path.exists(original_image_path):
-             return render_template('index.html', error="Please upload an image file.", original_image=None, processed_images=None)
+            return render_template('index.html', error="Please upload an image file.", original_image=None, processed_images=None)
         else:
             # Nếu có ảnh cũ, không cần lưu ảnh mới
             img = cv2.imread(original_image_path)
