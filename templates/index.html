@@ -8,7 +8,9 @@
 </head>
 <body>
     <h1>Upload an Image for Processing</h1>
-    
+    {% if error %}
+        <div class="error-message">{{ error }}</div>
+    {% endif %}
     <!-- Form upload ảnh và chọn phương pháp xử lý -->
     <form action="/upload" method="post" enctype="multipart/form-data">
         <label for="file">Select Image:</label>
@@ -16,7 +18,6 @@
         
         <label for="method">Select Processing Method:</label>
         <select name="method">
-            <option value="grayscale">Grayscale</option>
             <option value="smoothing">Smoothing</option>
             <option value="sharpening">Sharpening</option>
             <option value="edge_detection">Edge Detection</option>

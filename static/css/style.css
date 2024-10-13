@@ -93,3 +93,14 @@ p {
     border-right: #333 1px solid;
 
 }
+
+.error-message {
+    color: #ff0000; /* Màu đỏ nổi bật cho thông báo lỗi */
+    background-color: #ffe6e6; /* Nền màu nhạt để làm thông báo dễ nhìn */
+    border: 1px solid #ff0000; /* Đường viền đỏ đồng bộ với màu chữ */
+    padding: 10px; /* Khoảng cách bên trong khối để văn bản không bị sát mép */
+    border-radius: 5px; /* Bo góc để tạo cảm giác mềm mại */
+    font-size: 16px; /* Kích thước font vừa phải */
+    width: fit-content; /* Chiều rộng vừa đủ cho nội dung */
+    margin: 10px auto; /* Khoảng cách giữa thông báo lỗi và các phần tử xung quanh */
+}

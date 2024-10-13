@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, flash
+from flask import Flask, jsonify, render_template, request, redirect, url_for, send_from_directory, flash
 import cv2
 import numpy as np
 import os
@@ -23,7 +23,7 @@ def index():
     
     # Kiểm tra từng phương pháp và thêm vào từ điển nếu tồn tại ảnh
     for method in processed_methods:
-        if method in ['sobel', 'prewitt', 'canny', 'smoothing', 'sharpening', 'gray']:
+        if method in ['sobel', 'prewitt', 'canny', 'smoothing', 'sharpening']:
             image_filename = f'output_{method}.jpg'  # Tạo tên file tương ứng
             if os.path.exists(os.path.join(app.config['OUTPUT_FOLDER'], image_filename)):
                 processed_images[method] = image_filename  # Thêm vào từ điển nếu tồn tại
@@ -43,8 +43,7 @@ def upload_image():
     # Kiểm tra nếu không có file mới được chọn, sẽ sử dụng ảnh cũ
     if 'file' not in request.files or request.files['file'].filename == '':
         if not os.path.exists(original_image_path):
-            flash('No image file selected and no previous image found.', 'error')
-            return redirect(url_for('index'))
+             return render_template('index.html', error="Please upload an image file.", original_image=None, processed_images=None)
         else:
             # Nếu có ảnh cũ, không cần lưu ảnh mới
             img = cv2.imread(original_image_path)
@@ -56,14 +55,7 @@ def upload_image():
     method = request.form['method']
     processed_images = []
 
-    if method == 'grayscale':
-        # Xử lý ảnh: chuyển sang grayscale
-        gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        output_gray_path = os.path.join(app.config['OUTPUT_FOLDER'], 'output_gray.jpg')
-        cv2.imwrite(output_gray_path, gray_img)
-        processed_images.append('gray')
-
-    elif method == 'smoothing':
+    if method == 'smoothing':
         # Xử lý ảnh: smoothing
         smooth_img = cv2.GaussianBlur(img, (5, 5), 0)
         output_smooth_path = os.path.join(app.config['OUTPUT_FOLDER'], 'output_smoothing.jpg')
